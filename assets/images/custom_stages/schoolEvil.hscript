@@ -1,0 +1,66 @@
+var bruh;
+function start(song) {
+    getHaxeActor("bf").x += 50;
+    getHaxeActor("bf").y += 60;
+    getHaxeActor('gf').x -= 100;
+    getHaxeActor('gf').y += 10;
+    getHaxeActor('bf').followCamX -= 100;
+
+    // char swap offsets [0 = bf.x, 1 = bf.y, 2 = gf.x, 3 = gf.y, 4 = dad.x, 5 = dad.y];
+    swapOffsets[0] += 50;
+    swapOffsets[1] += 60;
+    swapOffsets[2] += 100;
+    swapOffsets[3] += 10;
+
+    var bg = new FlxSprite(400, 200);
+    bg.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'animatedEvilSchool.png', hscriptPath + 'animatedEvilSchool.xml');
+    bg.animation.addByPrefix("idle", "background 2", 24, true);    
+    bg.animation.play("idle", true);
+    bg.scrollFactor.set(0.8, 0.9);
+    bg.scale.set(6, 6);
+    addSprite(bg, BEHIND_ALL);
+
+    bruh = new FlxSprite().loadGraphic(hscriptPath + 'Scanlines.png');
+    bruh.alpha = 0.8;
+    bruh.antialiasing = true;
+    bruh.cameras = [camHUD];
+    addSprite(bruh, BEHIND_NONE);
+}
+
+function beatHit(beat)
+{
+}
+
+function update(elapsed) {
+    if (FlxG.keys.justPressed.SPACE)
+	bruh.visible = !bruh.visible;
+}
+
+function stepHit(step)
+{
+}
+
+function playerTwoTurn()
+{
+}
+
+function playerTwoMiss()
+{
+}
+
+function playerTwoSing()
+{
+}
+
+function playerOneTurn()
+{
+}
+
+function playerOneMiss()
+{
+}
+
+function playerOneSing()
+{
+}
+

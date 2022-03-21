@@ -1,0 +1,51 @@
+
+function start(song)
+{
+   setDefaultZoom(1.0);
+}
+
+
+function beatHit(beat)
+{
+}
+
+function update(elapsed)
+{
+}
+
+function stepHit(step)
+{
+        if (curStep == 124){
+            boyfriend.playAnim('hey');
+            dad.playAnim('cheer');
+        } 
+        if (curStep == 188){
+            boyfriend.playAnim('hey');
+            dad.playAnim('cheer');
+    }
+}
+
+function playerTwoTurn()
+{
+    tweenCamIn();
+}
+
+function playerTwoMiss()
+{
+}
+
+function playerTwoSing()
+{
+}
+
+function playerOneTurn()
+{
+}
+
+function playerOneMiss()
+{
+}
+
+function playerOneSing()
+{
+}

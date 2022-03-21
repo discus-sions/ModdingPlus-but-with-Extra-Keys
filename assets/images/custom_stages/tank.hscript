@@ -1,0 +1,288 @@
+var steve;
+var johns;
+var tower;
+var losers;
+var tankSpeedJohn = [];
+var goingRightJohn = [];
+var strumTimeJohn = [];
+var endingOffsetJohn = [];
+function start(song) {
+	setDefaultZoom(0.9);
+
+	getHaxeActor("gf").y += 10;
+	getHaxeActor("gf").x -= 30;
+	getHaxeActor("boyfriend").x += 40;
+	getHaxeActor("dad").y += 60;
+	getHaxeActor("dad").x -= 80;
+
+    // char swap offsets [0 = bf.x, 1 = bf.y, 2 = gf.x, 3 = gf.y, 4 = dad.x, 5 = dad.y];
+    swapOffsets[0] += 40;
+    swapOffsets[2] -= 30;
+    swapOffsets[3] += 10;
+    swapOffsets[4] -= 80;
+    swapOffsets[5] += 60;
+
+    var bg = new FlxSprite(-400, -400).loadGraphic(hscriptPath + 'tankSky.png');
+    bg.scrollFactor.set();
+    bg.antialiasing = true;
+    addSprite(bg, BEHIND_ALL);
+
+    var clouds = new FlxSprite(FlxG.random.int(-700, -100), FlxG.random.int(-20, 20)).loadGraphic(hscriptPath + 'tankClouds.png');
+	clouds.antialiasing = true;
+	clouds.scrollFactor.set(0.1, 0.1);
+    clouds.velocity.x = FlxG.random.float(5,15);
+    addSprite(clouds, BEHIND_ALL);
+
+    var mountains = new FlxSprite(-300, -20).loadGraphic(hscriptPath + 'tankMountains.png');
+    mountains.antialiasing = true;
+    mountains.setGraphicSize(Std.int(mountains.width * 1.2));
+    mountains.updateHitbox();
+    mountains.scrollFactor.set(0.2, 0.2);
+    addSprite(mountains, BEHIND_ALL);
+
+    var building = new FlxSprite(-200).loadGraphic(hscriptPath + 'tankBuildings.png');
+    building.setGraphicSize(Std.int(building.width * 1.1));
+    building.antialiasing = true;
+    building.updateHitbox();
+    building.scrollFactor.set(0.3, 0.3);
+    addSprite(building, BEHIND_ALL);
+
+    var ruins = new FlxSprite(-200).loadGraphic(hscriptPath + 'tankRuins.png');
+    ruins.scrollFactor.set(0.35, 0.35);
+    ruins.setGraphicSize(Std.int(1.1 * ruins.width));
+    ruins.updateHitbox();
+    ruins.antialiasing = true;
+    addSprite(ruins, BEHIND_ALL);
+
+    var smokeLeft = new FlxSprite(-200 , -100);
+    smokeLeft.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'smokeLeft.png', hscriptPath + 'smokeLeft.xml');
+    smokeLeft.animation.addByPrefix('idle', 'SmokeBlurLeft', 24, true);
+    smokeLeft.animation.play('idle', true);
+    smokeLeft.scrollFactor.set(0.4, 0.4);
+    smokeLeft.antialiasing = true;
+    addSprite(smokeLeft, BEHIND_ALL);
+
+	var smokeRight = new FlxSprite(1100, -100);
+	smokeRight.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'smokeRight.png', hscriptPath + 'smokeRight.xml');
+	smokeRight.animation.addByPrefix('idle', 'SmokeRight', 24, true);
+	smokeRight.animation.play('idle', true);
+	smokeRight.scrollFactor.set(0.4, 0.4);
+    smokeRight.antialiasing = true;
+	addSprite(smokeRight, BEHIND_ALL);
+
+	tower = new MetroSprite(100, 50, true);
+	tower.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tankWatchtower.png', hscriptPath + 'tankWatchtower.xml');
+	tower.animation.addByPrefix('idle', 'watchtower gradient color', 24, false);
+	tower.animation.play('idle', true);
+	tower.scrollFactor.set(0.5, 0.5);
+	tower.updateHitbox();
+	tower.antialiasing = true;
+	addSprite(tower, BEHIND_ALL);
+
+    steve = new FlxSprite(300, 300);
+    steve.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tankRolling.png', hscriptPath + 'tankRolling.xml');
+    steve.animation.addByPrefix('idle', "BG tank w lighting", 24, true);
+    steve.animation.play('idle', true);
+    steve.antialiasing = true;
+    steve.scrollFactor.set(0.5, 0.5);
+    addSprite(steve, BEHIND_ALL);
+
+    // note to gamers, type classes don't work
+    johns = new FlxGroup();
+    addSprite(johns, BEHIND_ALL);
+
+    var ground = new FlxSprite(-420, -150).loadGraphic(hscriptPath + 'tankGround.png');
+    ground.setGraphicSize(Std.int(1.15 * ground.width));
+    ground.updateHitbox();
+    ground.antialiasing = true;
+    addSprite(ground, BEHIND_ALL);
+
+    losers = new FlxGroup();
+    
+    var tank0 = new MetroSprite(-500, 650, true);
+    tank0.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank0.png', hscriptPath + 'tank0.xml');
+    tank0.antialiasing = true;
+    tank0.animation.addByPrefix("idle", "fg", 24, false);
+    tank0.scrollFactor.set(1.7, 1.5);
+    tank0.animation.play("idle");
+    losers.add(tank0);
+
+	var tank1 = new MetroSprite(-300, 750, true);
+	tank1.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank1.png', hscriptPath + 'tank1.xml');
+	tank1.antialiasing = true;
+	tank1.animation.addByPrefix("idle", "fg", 24, false);
+	tank1.scrollFactor.set(2, 0.2);
+	tank1.animation.play("idle");
+	losers.add(tank1);
+
+	var tank2 = new MetroSprite(450, 940, true);
+	tank2.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank2.png', hscriptPath + 'tank2.xml');
+	tank2.antialiasing = true;
+	tank2.animation.addByPrefix("idle", "foreground", 24, false);
+	tank2.scrollFactor.set(1.5, 1.5);
+	tank2.animation.play("idle");
+	losers.add(tank2);
+
+	var tank4 = new MetroSprite(1300, 900, true);
+	tank4.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank4.png', hscriptPath + 'tank4.xml');
+	tank4.antialiasing = true;
+	tank4.animation.addByPrefix("idle", "fg", 24, false);
+	tank4.scrollFactor.set(1.5, 1.5);
+	tank4.animation.play("idle");
+	losers.add(tank4);
+
+	var tank5 = new MetroSprite(1620, 700, true);
+	tank5.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank5.png', hscriptPath + 'tank5.xml');
+	tank5.antialiasing = true;
+	tank5.animation.addByPrefix("idle", "fg", 24, false);
+	tank5.scrollFactor.set(1.5, 1.5);
+	tank5.animation.play("idle");
+	losers.add(tank5);
+
+	var tank3 = new MetroSprite(1300, 1200, true);
+	tank3.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank3.png', hscriptPath + 'tank3.xml');
+	tank3.antialiasing = true;
+	tank3.animation.addByPrefix("idle", "fg", 24, false);
+	tank3.scrollFactor.set(3.5, 2.5);
+	tank3.animation.play("idle");
+	losers.add(tank3);
+    addSprite(losers, BEHIND_NONE);
+
+	if (!getHaxeActor("gf").hasGun) {
+        getHaxeActor("gf").x -= 170;
+		getHaxeActor("gf").y -= 75;
+    } else {
+		getHaxeActor("gf").y -= 200;
+		getHaxeActor("gf").x -= 50;
+
+		var john = new FlxSprite(FlxG.width + 1000, 500);
+        john.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tankmanKilled1.png', hscriptPath + 'tankmanKilled1.xml');
+        john.antialiasing = true;
+        john.animation.addByPrefix("run", "tankman running", 24, true);
+        john.animation.addByPrefix("shot", "John Shot " + FlxG.random.int(1,2), 24, false);
+        john.setGraphicSize(Std.int(0.8 * john.width));
+        john.updateHitbox();
+        john.animation.play("run");
+        tankSpeedJohn.push(0.7);
+        goingRightJohn.push(false);
+
+		strumTimeJohn.push(gf.animationNotes[0][0]);
+        endingOffsetJohn.push(FlxG.random.float(0.6, 1));
+		resetJohn(FlxG.width * 1.5, 600, true, john, 0);
+        johns.add(john);
+        var i = 0;
+		for (c in 1...gf.animationNotes.length)
+		{
+			if (FlxG.random.float(0, 100) < 16)
+			{
+                var jahn = john.clone();
+                /*
+                jahn.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tankmanKilled1.png', hscriptPath + 'tankmanKilled1.xml');
+                jahn.antialiasing = true;
+                jahn.animation.addByPrefix("run", "tankman running", 24, true);
+                jahn.animation.addByPrefix("shot", "John Shot " + FlxG.random.int(1,2), 24, false);
+                jahn.setGraphicSize(Std.int(0.8 * john.width));
+                jahn.updateHitbox();
+                jahn.animation.play("run");
+                */
+                tankSpeedJohn.push(0.7);
+                goingRightJohn.push(false);
+
+                strumTimeJohn.push(gf.animationNotes[c][0]);
+                endingOffsetJohn.push(FlxG.random.float(0.6, 1));
+                johns.add(jahn);
+                resetJohn(FlxG.width * 1.5, 200 + FlxG.random.int(50, 100),  2 > gf.animationNotes[c][1], jahn,i);
+                i++;
+				trace("make johgf");
+			}
+		}
+    }
+}
+
+function beatHit(beat) {
+    losers.forEach(function (spr) {
+        spr.dance();
+    });
+    tower.dance();
+}
+var tankAngle = FlxG.random.int(-90, 45);
+var tankSpeed = FlxG.random.float(5, 7);
+var tankX = 400;
+function moveTank() {
+    if (!isInCutscene()) {
+        tankAngle += FlxG.elapsed * tankSpeed;
+        steve.angle = tankAngle - 90 + 15;
+        steve.x = tankX + 1500 * FlxMath.fastCos(FlxAngle.asRadians(tankAngle + 180));
+        steve.y = 1300 + 1100 * FlxMath.fastSin(FlxAngle.asRadians(tankAngle + 180));
+    }
+}
+function resetJohn(x, y, goingRight, spr, johnNum) {
+    trace(johnNum);
+    spr.x = x;
+    spr.y = y;
+    goingRightJohn[johnNum] = goingRight;
+    endingOffsetJohn[johnNum] = FlxG.random.float(50, 200);
+    tankSpeedJohn[johnNum] = FlxG.random.float(0.6, 1);
+     spr.flipX = if (goingRight) true else false;
+}
+function update(elapsed) {
+    moveTank();
+    var i = 0;
+    for (spr in johns.members) {
+        if (spr.x >= 1.2 * FlxG.width || spr.x <= -0.5 * FlxG.width)
+            spr.visible = false;
+        else
+            spr.visible = true;
+        if (spr.animation.curAnim.name == "run") {
+            var fuck = 0.74 * FlxG.width + endingOffsetJohn[i];
+            if (goingRightJohn[i]) {
+                fuck = 0.02 * FlxG.width - endingOffsetJohn[i];
+                spr.x = fuck + (Conductor.songPosition - strumTimeJohn[i]) * tankSpeedJohn[i];
+                spr.flipX = true;
+            } else {
+                spr.x = fuck - (Conductor.songPosition - strumTimeJohn[i]) * tankSpeedJohn[i];
+                spr.flipX = false;
+            }
+        }
+        if (Conductor.songPosition > strumTimeJohn[i]) {
+            spr.animation.play("shot");
+            if (goingRightJohn[i]) {
+                spr.offset.y = 200;
+                spr.offset.x = 300;
+            }
+        }
+        if (spr.animation.curAnim.name == "shot" && spr.animation.curAnim.curFrame >= spr.animation.curAnim.frames.length - 1) {
+            spr.kill();
+        }
+        i++;
+    }
+}
+
+function stepHit(step)
+{
+}
+
+function playerTwoTurn()
+{
+}
+
+function playerTwoMiss()
+{
+}
+
+function playerTwoSing()
+{
+}
+
+function playerOneTurn()
+{
+}
+
+function playerOneMiss()
+{
+}
+
+function playerOneSing()
+{
+}
+

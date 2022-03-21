@@ -1,0 +1,44 @@
+function init(char) {
+    var tex = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+
+    char.frames = tex;
+    char.animation.addByPrefix('idle', 'Mom Idle', 24, true);
+    char.animation.addByPrefix('singUP', 'Mom Up Pose', 24, true);
+    char.animation.addByPrefix('singLEFT','Mom Left Pose', 24, true);
+    char.animation.addByPrefix('singRIGHT', 'Mom Pose Left', 24, true);
+    char.animation.addByPrefix('singDOWN', 'MOM DOWN POSE', 24, true);
+    
+    char.addOffset('idle');
+    char.addOffset('singUP', 14, 71);
+    char.addOffset('singRIGHT',10, -60);
+    char.addOffset('singLEFT', 250, -23);
+    char.addOffset('singDOWN', 20, -160);
+
+    char.playAnim('idle');
+
+    char.flipX = false;
+
+    char.enemyOffsetX = 0;
+    char.enemyOffsetY = 0;
+    char.playerOffsetX = 200;
+    char.playerOffsetY = -350;
+    if (char.isPlayer) {
+        char.followCamX = -50;
+        char.followCamY = 70;
+    } else {
+        char.followCamX = 150;
+        char.followCamY = 0;
+    }
+    char.midpointX = 0;
+    char.midpointY = 0;
+}
+portraitOffset = [0, 0];
+dadVar = 4.0;
+isPixel = false;
+function update(elapsed, char) {
+    // do nothing...
+}
+var danced = false;
+function dance(char) {
+    char.playAnim('idle');
+}

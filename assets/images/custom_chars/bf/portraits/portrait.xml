@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="bf-pixel.png">
+	<!-- Created with Adobe Animate version 21.0.0.35450 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="default0000" x="0" y="0" width="409" height="245"/>
+	<SubTexture name="weird0000" x="409" y="0" width="409" height="245"/>
+	<SubTexture name="bruh0000" x="818" y="0" width="409" height="245"/>
+	<SubTexture name="worried0000" x="0" y="245" width="409" height="245"/>
+	<SubTexture name="surprised0000" x="409" y="245" width="409" height="245"/>
+	<SubTexture name="happy0000" x="818" y="245" width="409" height="245"/>
+	<SubTexture name="sweating0000" x="0" y="490" width="409" height="245"/>
+	<SubTexture name="angry0000" x="409" y="490" width="409" height="245"/>
+	<SubTexture name="why0000" x="818" y="490" width="409" height="245"/>
+	<SubTexture name="crying0000" x="0" y="735" width="409" height="245"/>
+	<SubTexture name="smile0000" x="409" y="735" width="409" height="245"/>
+	<SubTexture name="vomit0000" x="818" y="735" width="409" height="245"/>
+	<SubTexture name="laugh0000" x="0" y="980" width="409" height="245"/>
+	<SubTexture name="fear0000" x="409" y="980" width="409" height="245"/>
+	<SubTexture name="relaxed0000" x="818" y="980" width="409" height="245"/>
+</TextureAtlas>

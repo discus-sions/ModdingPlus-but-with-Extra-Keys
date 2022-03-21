@@ -1,0 +1,92 @@
+function init(char) {
+    if (!char.isDie) {
+        char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+        char.animation.addByPrefix('idle', 'BF IDLE', 24, false);
+        char.animation.addByPrefix('singUP', 'BF UP NOTE', 24, false);
+        if (char.isPlayer) {
+            char.animation.addByPrefix('singLEFT', 'BF LEFT NOTE', 24, false);
+            char.animation.addByPrefix('singRIGHT', 'BF RIGHT NOTE', 24, false);
+            char.animation.addByPrefix('singLEFTmiss', 'BF LEFT MISS', 24, false);
+            char.animation.addByPrefix('singRIGHTmiss', 'BF RIGHT MISS', 24, false);
+        } else {
+            char.animation.addByPrefix('singLEFT', 'BF RIGHT NOTE', 24, false);
+            char.animation.addByPrefix('singRIGHT', 'BF LEFT NOTE', 24, false);
+            char.animation.addByPrefix('singLEFTmiss', 'BF RIGHT MISS', 24, false);
+            char.animation.addByPrefix('singRIGHTmiss', 'BF LEFT MISS', 24, false);
+        }
+        
+        char.animation.addByPrefix('singDOWN', 'BF DOWN NOTE', 24, false);
+        char.animation.addByPrefix('singUPmiss', 'BF UP MISS', 24, false);
+        
+        char.animation.addByPrefix('singDOWNmiss', 'BF DOWN MISS', 24, false);
+
+        char.addOffset('idle');
+        char.addOffset("singUP");
+        char.addOffset("singRIGHT");
+        char.addOffset("singLEFT");
+        char.addOffset("singDOWN");
+        char.addOffset("singUPmiss");
+        char.addOffset("singRIGHTmiss");
+        char.addOffset("singLEFTmiss");
+        char.addOffset("singDOWNmiss");
+
+        char.setGraphicSize(Std.int(char.width * 6));
+        char.updateHitbox();
+
+        char.playAnim('idle');
+
+        char.width -= 100;
+        char.height -= 100;
+
+        char.antialiasing = false;
+        char.isPixel = true;
+        char.flipX = true;
+        char.like = "bf-pixel";
+        char.likeBf = true;
+        char.followCamX = -50;
+        if (char.isPlayer) {
+            char.followCamY = -120;
+        } else {
+            char.followCamY = -200;
+        }
+    } else {
+        char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'dead.png', hscriptPath + 'dead.xml');
+        char.animation.addByPrefix('singUP', "BF Dies pixel", 24, false);
+        char.animation.addByPrefix('deathLoop', "Retry Loop", 24, true);
+        char.animation.addByPrefix('firstDeath', "BF Dies pixel", 24, false);
+        char.animation.addByPrefix('deathConfirm', "RETRY CONFIRM", 24, false);
+        char.animation.play('firstDeath');
+
+        char.addOffset('firstDeath');
+        char.addOffset('deathLoop', -37);
+        char.addOffset('deathConfirm', -37);
+        char.playAnim('firstDeath');
+        // pixel bullshit
+        char.setGraphicSize(Std.int(char.width * 6));
+        char.updateHitbox();
+        char.antialiasing = false;
+        char.flipX = true;
+        char.isPixel = true;
+        char.like = "bf-pixel";
+        char.likeBf = true;
+        
+        char.followCamX = -100;
+        char.followCamY = -100;
+    }
+    char.playerOffsetX = 150;
+    char.playerOffsetY = 160;
+    char.enemyOffsetX = 230;
+    char.enemyOffsetY = 500;
+    char.isPixel = true;
+    
+}
+portraitOffset = [0, 0];
+dadVar = 4.0;
+isPixel = true;
+function update(elapsed, char) {
+    // do nothing...
+}
+var danced = false;
+function dance(char) {
+    char.playAnim('idle');
+}

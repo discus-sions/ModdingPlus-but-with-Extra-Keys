@@ -1,0 +1,35 @@
+function init(char) {
+    var tex = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+
+    char.frames = tex;
+    char.animation.addByIndices('danceLeft', 'GF IDLE', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
+    char.animation.addByIndices('danceRight', 'GF IDLE', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
+
+    char.addOffset('danceLeft');
+    char.addOffset('danceRight');
+
+    char.playAnim('danceRight');
+    char.like = "gf";
+    char.likeGf = true;
+    char.gfEpicLevel = Level_Boogie;
+    char.setGraphicSize(Std.int(char.width * 6));
+    char.gfOffsetX = 280;
+    char.gfOffsetY = 290;
+    char.updateHitbox();
+    char.antialiasing = false;
+}
+portraitOffset = [0, 0];
+dadVar = 4.0;
+isPixel = true;
+function update(elapsed, char) {
+    // do nothing...
+}
+var danced = false;
+function dance(char) {
+    danced = !danced;
+
+    if (danced)
+        char.playAnim('danceRight');
+    else
+        char.playAnim('danceLeft');
+}
